@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  AGENT
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  role        Role     @default(USER)
+
+  tickets     Ticket[]
+  comments    Comment[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Ticket {
+  id          String        @id @default(uuid())
+  title       String
+  description String
+
+  status      TicketStatus  @default(OPEN)
+
+  userId      String
+
+  user        User @relation(fields: [userId], references: [id])
+
+  comments    Comment[]
+  
+  aiSummary   String?
+  
+  attachmentUrl String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+
+  message     String
+
+  userId      String
+  ticketId    String
+
+  user        User @relation(fields: [userId], references: [id])
+
+  ticket      Ticket @relation(fields: [ticketId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
