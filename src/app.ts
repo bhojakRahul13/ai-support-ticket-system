@@ -32,12 +32,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tickets", ticketRoutes);
 app.use("/api/comments", commentRoutes);
 
-app.get("/api/me", authMiddleware(), async (req: AuthRequest, res) => {
+app.get("/api/heath", async (req: AuthRequest, res) => {
   res.json({
     success: true,
-    user: req.user,
+    status: "OK",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
   });
 });
+
 app.use(globalErrorHandler);
 
 export default app;
