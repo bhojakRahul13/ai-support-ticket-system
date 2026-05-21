@@ -32,7 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/tickets", ticketRoutes);
 app.use("/api/comments", commentRoutes);
 
-app.get("/api/heath", async (req: AuthRequest, res) => {
+app.get("/api/health", async (req: AuthRequest, res) => {
   res.json({
     success: true,
     status: "OK",
