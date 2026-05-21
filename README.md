@@ -1,19 +1,34 @@
 # AI Support Ticket System
 
-AI-powered support ticket backend built with Node.js, Express, TypeScript, Prisma, PostgreSQL, Socket.IO, and Docker.
+AI-powered support ticket backend built with Node.js, Express, TypeScript, Prisma, PostgreSQL, Socket.IO, Docker, and AI integration.
+
+---
+
+## Live API
+
+https://ai-support-ticket-system-n18e.onrender.com
+
+---
+
+## Swagger Documentation
+
+https://ai-support-ticket-system-n18e.onrender.com/api/docs
+
+---
 
 ## Features
 
 - JWT Authentication
 - Role-based Access Control
-- Ticket Management
-- AI Ticket Summaries
+- AI Ticket Summary
 - Realtime Chat with Socket.IO
 - File Uploads
 - Swagger API Docs
-- Global Error Handling
-- Validation with Zod
-- Docker Support
+- Dockerized Backend
+- Cloud Deployment
+- Health Monitoring API
+
+---
 
 ## Tech Stack
 
@@ -22,24 +37,23 @@ AI-powered support ticket backend built with Node.js, Express, TypeScript, Prism
 - TypeScript
 - PostgreSQL
 - Prisma ORM
-- Socket.IO
 - Zod
-- Multer
+- Socket.IO
 - Swagger
 - Docker
+- Render
 - Groq/OpenAI
 
-## Setup
-
-```bash
-npm install
-```
+---
 
 ## Run Locally
 
 ```bash
+npm install
 npm run dev
 ```
+
+---
 
 ## Docker Run
 
@@ -48,8 +62,10 @@ docker build -t ai-support-ticket-system .
 docker run --env-file .env -p 3000:3000 ai-support-ticket-system
 ```
 
-## API Docs
+---
+
+## Health API
 
 ```txt
-http://localhost:3000/api/docs
+GET /api/health
 ```
