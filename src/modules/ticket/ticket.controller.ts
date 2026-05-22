@@ -6,6 +6,7 @@ import {
   updateTicketStatus,
 } from "./ticket.service";
 import catchAsync from "../../utils/catchAsync";
+import { Role, TicketStatus } from "@prisma/client";
 
 export const create = catchAsync(async (req: AuthRequest, res: Response) => {
   const attachmentUrl = req.file ? `/uploads/${req.file.filename}` : null;
@@ -25,7 +26,23 @@ export const create = catchAsync(async (req: AuthRequest, res: Response) => {
 
 export const getTickets = catchAsync(
   async (req: AuthRequest, res: Response) => {
-    const tickets = await getAllTickets(req.user.id, req.user.role);
+    const tickets = await getAllTickets({
+      userId: req.user.id,
+      role: req.user.role,
+
+      page: Number(req.query.page) || 1,
+      limit: Number(req.query.limit) || 10,
+
+      search: req.query.search as string,
+
+      status: req.query.status as TicketStatus,
+
+      userRole: req.query.userRole as Role,
+
+      sortBy: req.query.sortBy as string,
+
+      sortOrder: (req.query.sortOrder as "asc" | "desc") || "desc",
+    });
     res.status(200).json({
       success: true,
       data: tickets,
